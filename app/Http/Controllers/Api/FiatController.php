@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Models\FiatCurrency;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\FiatCurrency;
 
 class FiatController extends Controller
 {
     private $successStatus              =   200;
     private $failStatus                 =   404;
+    private $alreadyStatus              =   208;
     public function index()
     {
         return FiatCurrency::all();
@@ -29,7 +31,7 @@ class FiatController extends Controller
                 ]);
                 return response()->json(["status"=> "success",'data'=>$fiat], $this->successStatus);
             }
-            return response()->json(null, $this->failStatus);
+            return response()->json(null, $this->alreadyStatus);
         }
     }
 

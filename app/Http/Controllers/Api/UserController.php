@@ -1,15 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Models\User;
+
 use Illuminate\Support\Facades\Auth; 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Http\Controllers\Api\UserWalletController;
 
 class UserController extends Controller
 {
     private $successStatus              =   200;
     private $failStatus                 =   404;
+    private $unauthorisedlStatus        =   401;
     public function login(){ 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
             $user = Auth::user(); 
@@ -21,7 +24,7 @@ class UserController extends Controller
             return response()->json(['success' => $success], $this->successStatus); 
         } 
         else{ 
-            return response()->json(['error'=>'Unauthorised'], $this->$unauthorisedlStatus); 
+            return response()->json(null, $this->unauthorisedlStatus); 
         } 
     }
     public function register(Request $request) 
@@ -68,19 +71,22 @@ class UserController extends Controller
 
         return response()->json($user);
     }
-    public function resetpassword(Request $request, User $user)
+
+    public function resetPassword(Request $request, User $user)
     {
         $user->update([
             'password'=>bcrypt($request->password)
         ]);
         return response()->json($user);
     }
+
     public function destroy(User $user)
     {
         $user->delete();
 
         return response()->json(null, 204);
     }
+
     public function logout(Request $request) {
         $Auth = Auth::logout();
         $success['user_id']     =      '';
@@ -89,5 +95,9 @@ class UserController extends Controller
         $success['username']    =      '';
         $success['token']       =      '';
         return response()->json($success, $this->successStatus);
-      }
+    }
+
+    public function userDetail(Request $request) {
+        return $request->user();
+    }
 }

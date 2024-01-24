@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\FiatController;
 use App\Http\Controllers\Api\CryptoCurrenciesController;
+use App\Http\Controllers\Api\RoleUsersController;
+use App\Http\Controllers\Api\UserWalletController;
+use App\Http\Controllers\Api\OrderCrtptoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,30 +17,27 @@ use App\Http\Controllers\Api\CryptoCurrenciesController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+// User 
 Route::post('/login',[UserController::class,'login']);
 Route::post('/register',[UserController::class,'register']);
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::post('/logout',[UserController::class,'logout']);
+
 Route::group(["middleware" => ["auth:api"]], function(){
-    // Fiats User 
-    // Route::post('/logout',[UserController::class,'logout']);
-    Route::post('/password',[UserController::class,'resetpassword']);
+    // User 
+    Route::post('/password',[UserController::class,'resetPassword']);
+    Route::get('/user',[UserController::class,'userDetail']);
+    Route::post('/logout',[UserController::class,'logout']);
+    // Get List Crytpo
+    Route::get('listcrytpo', [CryptoCurrenciesController::class, 'listCrytpo']);
+    Route::resources([
+        // Fiats Currency CRUD
+        'fiats' => FiatController::class,
+        'crypto-currencys' => CryptoCurrenciesController::class,
+        // Roles Users CRUD
+        'roles' => RoleUsersController::class,
+        // Wallets CRUD
+        'wallets' => UserWalletController::class,
+        // Orders CRUD
+        'orders' => OrderCrtptoController::class
+    ]);
 
-
-    // Fiats Currencies CRUD
-    Route::post('fiats', [FiatController::class, 'store']);
-    Route::get('fiats', [FiatController::class, 'index']);
-    Route::get('fiats/{fiat}', [FiatController::class, 'show']);
-    Route::put('fiats/{fiat}', [FiatController::class, 'update']);
-    Route::delete('fiats/{fiat}', [FiatController::class, 'destroy']);
-
-
-    // CryptoCurrencies CRUD
-    Route::post('crypto-currency', [CryptoCurrenciesController::class, 'store']);
-    Route::get('crypto-currency', [CryptoCurrenciesController::class, 'index']);
-    Route::get('crypto-currency/{crypto}', [CryptoCurrenciesController::class, 'show']);
-    Route::put('crypto-currency/{crypto}', [CryptoCurrenciesController::class, 'update']);
-    Route::delete('crypto-currency/{crypto}', [CryptoCurrenciesController::class, 'destroy']);
 });

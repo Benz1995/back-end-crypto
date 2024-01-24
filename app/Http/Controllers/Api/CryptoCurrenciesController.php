@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Models\CryptoCurrencies;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\CryptoCurrencies;
 
 class CryptoCurrenciesController extends Controller
 {
@@ -13,6 +14,7 @@ class CryptoCurrenciesController extends Controller
     {
         return CryptoCurrencies::all();
     }
+
     public function store(Request $request) 
     {
         $validator = \Validator::make($request->all(), [
@@ -33,29 +35,37 @@ class CryptoCurrenciesController extends Controller
         }
     }
 
-    public function show(CryptoCurrencies $crypto)
+    public function show(CryptoCurrencies $crypto_currency)
     {
+        return response()->json($crypto_currency);
+    }
+
+    public function update(Request $request, CryptoCurrencies $crypto_currency)
+    {;
+        $crypto_currency->update([
+            'cyt_name'=>$request->name
+        ]);
         return response()->json($crypto);
+        
     }
 
-    public function update(Request $request, CryptoCurrencies $crypto)
+    public function destroy(CryptoCurrencies $crypto_currency)
     {
-        try {
-            $crypto->update([
-                'cyt_name'=>$request->name
-            ]);
-            return response()->json($crypto);
-        } catch (ModelNotFoundException $exception) {
-            return back()->withError('User with ID: '.$request->user_id.' not found!')->withInput();
-        } catch (RelationNotFoundException $exception) {
-            return back()->withError($exception->getMessage())->withInput();
-        }
-    }
-
-    public function destroy(CryptoCurrencies $crypto)
-    {
-        $fiat->delete();
+        $crypto_currency->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function listCrytpo()
+    {
+        $Cryptos = CryptoCurrencies::all();
+        foreach ($Cryptos as $item) {
+            $resultCrypto[] = [
+                'cyt_id' => $item['cyt_id'],
+                'cyt_name' => $item['cyt_name'],
+            ];
+        }
+
+        return $resultCrypto;
     }
 }
