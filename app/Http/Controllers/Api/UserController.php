@@ -6,13 +6,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Http\Controllers\Api\UserWalletController;
 
 class UserController extends Controller
 {
     private $successStatus              =   200;
     private $failStatus                 =   404;
     private $unauthorisedlStatus        =   401;
+    private $authUser;
     public function login(){ 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
             $user = Auth::user(); 
@@ -30,11 +30,12 @@ class UserController extends Controller
     public function register(Request $request) 
     {
         $validator = \Validator::make($request->all(), [
-            'name'      => 'required|string|min:3|max:125',
-            'email'     => 'required|string|email|max:100|unique:users,email',
-            'phone'     => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9',
-            'password'=>'required',
-            'confirm_password'=>'required|same:password'
+            'name'              => 'required|string|min:3|max:125',
+            'username'          => 'required|string|min:3|max:125',
+            'email'             => 'required|string|email|max:100|unique:users,email',
+            'phone'             => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9',
+            'password'          =>'required',
+            'confirm_password'  =>'required|same:password'
            
         ]);
         
@@ -59,17 +60,34 @@ class UserController extends Controller
         }
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        $user->update([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'username'=>$request->username,
-            'phone'=>$request->phone,
-            'password'=>bcrypt($request->password)
+        $this->setAuthUser();
+        $validator = \Validator::make($request->all(), [
+            'name'      => 'required|string|min:3|max:125',
+            'email'     => 'required|string|email|max:100|unique:users,email',
+            'phone'     => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9',
+            'password'=>'required',
+            'confirm_password'=>'required|same:password'
+           
         ]);
+        
+        if ($validator ->fails()) {
+            $responseArr['message'] = $validator->errors();;
+            $responseArr['token'] = '';
+            return response()->json($responseArr, $this->failStatus);
+        }else{
+            $user = User::where('user_id',$this->authUser->user_id)
+            ->update([
+                'name'=>$request->name,
+                'email'=>$request->email,
+                'phone'=>$request->phone,
+                'password'=>bcrypt($request->password)
+            ]);
+            $updatedUser = User::where('user_id',$this->authUser->user_id)->first();
 
-        return response()->json($user);
+            return response()->json($updatedUser);
+        }
     }
 
     public function resetPassword(Request $request, User $user)
@@ -83,12 +101,12 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-
         return response()->json(null, 204);
     }
 
     public function logout(Request $request) {
-        $Auth = Auth::logout();
+        $user = Auth::user()->token();
+        $user->revoke();
         $success['user_id']     =      '';
         $success['name']        =      '';
         $success['email']       =      '';
@@ -98,6 +116,22 @@ class UserController extends Controller
     }
 
     public function userDetail(Request $request) {
-        return $request->user();
+        $this->setAuthUser();
+        $user = User::where('user_id', $this->authUser->user_id)->get();
+        return response()->json($user);
+    }
+
+    public function getUserDetailAll() {
+        $this->setAuthUser();
+        if(auth()->check() && $this->authUser->is_admin == 0){
+            echo "Access Denied";
+            exit;
+         }
+        return User::all();
+    }
+
+    public function setAuthUser() {
+        $this->middleware('auth:api');
+        $this->authUser = auth('api')->user();
     }
 }

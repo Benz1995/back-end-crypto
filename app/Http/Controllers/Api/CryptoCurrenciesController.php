@@ -10,6 +10,15 @@ class CryptoCurrenciesController extends Controller
 {
     private $successStatus              =   200;
     private $failStatus                 =   404;
+
+    function __construct() {
+        $this->authUser = auth('api')->user();
+        if(auth()->check() && $this->authUser->is_admin == 0){
+           echo "Access Denied";
+           exit;
+        }
+    }
+
     public function index()
     {
         return CryptoCurrencies::all();

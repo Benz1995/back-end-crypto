@@ -38,15 +38,12 @@ class UserWalletController extends Controller
             $responseArr['message'] = $validator->errors();;
             return response()->json($responseArr, $this->failStatus);
         }else{
-            if (UserWallet::where('user_id', $request->user_id)->count() == 0) {
-                $wallet = UserWallet::create([
-                    'user_id'=>$request->user_id,
-                    'cyt_id'=>$request->cyt_id,
-                    'amount'=> $request->amount ? $request->amount : 0
-                ]);
-                return response()->json(["status"=> "success",'data'=>$wallet], $this->successStatus);
-            }
-            return response()->json(null, $this->alreadyStatus);
+            $wallet = UserWallet::create([
+                'user_id'=>$request->user_id,
+                'cyt_id'=>$request->cyt_id,
+                'amount'=> $request->amount ? $request->amount : 0
+            ]);
+            return response()->json(["status"=> "success",'data'=>$wallet], $this->successStatus);
         }
     }
 
@@ -76,7 +73,11 @@ class UserWalletController extends Controller
             'amount'=>$request->amount
         ]);
 
-        return response()->json($wallet);
+        $updatedWallet = UserWallet::where('user_id', $request->user_id)
+        ->where('cyt_id', $request->cyt_id)
+        ->first();
+
+        return response()->json($updatedWallet);
     }
 
     /**

@@ -11,6 +11,8 @@ class FiatController extends Controller
     private $successStatus              =   200;
     private $failStatus                 =   404;
     private $alreadyStatus              =   208;
+
+
     public function index()
     {
         return FiatCurrency::all();

@@ -5,20 +5,27 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\OrderCrtpto;
+use Passport\Token;
 
 class OrderCrtptoController extends Controller
 {
     private $successStatus              =   200;
     private $failStatus                 =   404;
     private $alreadyStatus              =   208;
+    private $authUser;
+    private $isAdmin;
+    function __construct() {
+        $this->authUser = auth('api')->user();
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return OrderCrtpto::all();
+        $order = OrderCrtpto::where('user_id', $this->authUser->user_id)->get();
+        return response()->json($order);
     }
 
     /**
@@ -30,8 +37,8 @@ class OrderCrtptoController extends Controller
     public function store(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'user_id'      => 'required', 
-            'cyt_id'       => 'required',       
+            'cyt_id'        => 'required',  
+            'type'          => 'required',       
         ]);
         
         if ($validator ->fails()) {
@@ -39,7 +46,7 @@ class OrderCrtptoController extends Controller
             return response()->json($responseArr, $this->failStatus);
         }else{  
             $order = OrderCrtpto::create([
-                'user_id'=>$request->user_id,
+                'user_id'=>$this->authUser->user_id,
                 'cyt_id'=>$request->cyt_id,
                 'type'=>$request->type,
                 'cyt_amount'=> $request->amount ? $request->amount : 0
@@ -54,8 +61,11 @@ class OrderCrtptoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(OrderCrtpto $order)
+    public function show(Request $request,$orderID)
     {
+        $order = OrderCrtpto::where('user_id', $this->authUser->user_id)
+        ->where('order_id', $orderID)
+        ->first();
         return response()->json($order);
     }
 
@@ -66,17 +76,20 @@ class OrderCrtptoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$orderID)
     {
-        $order = OrderCrtpto::where('user_id',$request->user_id)
-        ->where('order_id ', $request->order_id)
+        $order = OrderCrtpto::where('user_id',$this->authUser->user_id)
+        ->where('order_id', $orderID)
         ->update([
-            'user_id'=>$request->user_id,
+            'user_id'=>$this->authUser->user_id,
             'cyt_id'=>$request->cyt_id,
             'type'=>$request->type,
             'cyt_amount'=> $request->amount ? $request->amount : 0
         ]);
-        return response()->json($order);
+        $updatedOrder = OrderCrtpto::where('user_id',$this->authUser->user_id)
+        ->where('order_id', $orderID)
+        ->first();
+        return response()->json($updatedOrder);
     }
 
     /**
@@ -88,7 +101,7 @@ class OrderCrtptoController extends Controller
     public function destroy(Request $request)
     {
         $order_id = $request->route('order');
-        $order = OrderCrtpto::where('user_id',$request->user_id)
+        $order = OrderCrtpto::where('user_id',$this->authUser->user_id)
         ->where('order_id', $order_id)
         ->delete();
         return response()->json(null, 204);

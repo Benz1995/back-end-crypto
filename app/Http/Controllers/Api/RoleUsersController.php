@@ -16,6 +16,15 @@ class RoleUsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    function __construct() {
+        $this->authUser = auth('api')->user();
+        if(auth()->check() && $this->authUser->is_admin == 0){
+           echo "Access Denied";
+           exit;
+        }
+    }
+
     public function index()
     {
         return RoleUsers::all();
