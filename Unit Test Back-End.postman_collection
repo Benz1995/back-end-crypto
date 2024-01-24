@@ -1,0 +1,2231 @@
+{
+	"info": {
+		"_postman_id": "5c29c279-8571-4f9f-8d97-fb4cf498c41f",
+		"name": "Back-End",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32486965"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Register App",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();\r",
+									"console.log(res)\r",
+									"\r",
+									"pm.environment.set('token', res.success.token);\r",
+									"pm.environment.set('name', res.success.name);\r",
+									"pm.environment.set('email', res.success.email);\r",
+									"pm.environment.set('username', res.success.username);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "benz2",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "kinjis4",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "confirm_password",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "benz17@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "0805715310",
+									"type": "text"
+								},
+								{
+									"key": "role_id",
+									"value": "0",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/register",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login App",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();\r",
+									"console.log(res)\r",
+									"\r",
+									"pm.environment.set('token', res.success.token);\r",
+									"pm.environment.set('name', res.success.name);\r",
+									"pm.environment.set('email', res.success.email);\r",
+									"pm.environment.set('username', res.success.username);\r",
+									"pm.environment.set('user_id', res.success.user_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "test@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/login",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "1234567890",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/password",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"password"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Detail User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "1234567890",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "TEST1",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "Test@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "080571571",
+									"type": "text"
+								},
+								{
+									"key": "confirm_password",
+									"value": "1234567890",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/user/edit",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"edit"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout App",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();\r",
+									"console.log(res)\r",
+									"\r",
+									"pm.environment.set('name',\"\");\r",
+									"pm.environment.set('email',\"\");\r",
+									"pm.environment.set('username',\"\");\r",
+									"pm.environment.set('token', \"\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{urlApi}}/api/logout",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users Detail (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlApi}}/api/users",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Detail Login Only",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlApi}}/api/users/me",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD API User\n\n- Register User\n    \n- Login\n    \n- Reset Password\n    \n- Logout\n    \n- View Detail Login"
+		},
+		{
+			"name": "Fiat Currency",
+			"item": [
+				{
+					"name": "Fiat Currency Add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "THB",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "THB",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/fiats",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"fiats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fiat Currency Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "USD1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/fiats/3",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"fiats",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fiat Currency Del",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlApi}}/api/fiats/2",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"fiats",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fiat Currency Get All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlApi}}/api/fiats",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"fiats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fiat Currency by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlApi}}/api/fiats/3",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"fiats",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD API Fiat (ADMIN)\n\n- Fiat Add\n- Fiat Update\n- Fiat Delete\n- Show Fiat in DB\n- Get Fiat By ID"
+		},
+		{
+			"name": "CryptoCurrencies",
+			"item": [
+				{
+					"name": "CryptoCurrencies Add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "KUB",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/crypto-currencys",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"crypto-currencys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CryptoCurrencies Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "KUB10",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/crypto-currencys/12",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"crypto-currencys",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CryptoCurrencies Del",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/crypto-currencys/12",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"crypto-currencys",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CryptoCurrencies Get All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlApi}}/api/crypto-currencys",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"crypto-currencys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CryptoCurrencies Get By ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlApi}}/api/crypto-currencys/5",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"crypto-currencys",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD API CryptoCurrencies (ADMIN)\n\n- Crypto Add\n- Crypto Update\n- Crypto Delete\n- Show Crypto in DB\n- Get Crypto By ID"
+		},
+		{
+			"name": "Role User",
+			"item": [
+				{
+					"name": "Roles Add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/roles",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Roles Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "ADmin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/roles/1",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Roles Del",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlApi}}/api/roles/1",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Roles Get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Adminnnn",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/roles",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Roles Get All By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Adminnnn",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/roles/2",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD API Role (ADMIN)\n\n- Role Add\n- Role Update\n- Role Delete\n- Show Role in DB\n- Get Role By ID"
+		},
+		{
+			"name": "Wallet",
+			"item": [
+				{
+					"name": "CryptoCurrencies Get list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"var jsonData = pm.response.json()\r",
+									"let collArr = [];\r",
+									"\r",
+									"for (item of jsonData) {\r",
+									"    collArr.push(item.cyt_id);\r",
+									"}\r",
+									"\r",
+									"console.log(\"Collection Array\", collArr);\r",
+									"\r",
+									"pm.collectionVariables.set(\"collArr\", collArr);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlApi}}/api/listcrytpo",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"listcrytpo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wallet Add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "cyt_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "{{user_id}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/wallets",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"wallets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wallet Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "cyt_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "{{user_id}}",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "20",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/wallets/1",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"wallets",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wallet Del",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "user_id",
+									"value": "{{user_id}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/wallets/1",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"wallets",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wallet Get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Adminnnn",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/wallets",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"wallets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Roles Get All By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/wallets/2",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"wallets",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD API Wallet\n\n- Wallet Add\n- Wallet Update\n- Wallet Delete\n- Show Wallet in DB (ADMIN)\n- Get Wallet By ID (ADMIN)"
+		},
+		{
+			"name": "Order Ctypto",
+			"item": [
+				{
+					"name": "CryptoCurrencies Get list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"console.log(data)\r",
+									"// const temp = data.value.map(value => value?.email);\r",
+									"// var subscriptions = temp.join(\",\");\r",
+									"// console.log(subscriptions);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/listcrytpo",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"listcrytpo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "cyt_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "cyt_amount",
+									"value": "0.078474",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "buy",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/orders",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "cyt_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "Sell",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "10",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/orders/2",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Del",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "user_id",
+									"value": "{{user_id}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/orders/3",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/orders",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Get All By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Adminnnn",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/orders/5",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD API Wallet (User)\n\n- Order Add\n    \n- Order Update\n    \n- Order Delete\n    \n- Show Order in DB\n    \n- Get Order By ID"
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "CryptoCurrencies Get list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"console.log(data)\r",
+									"// const temp = data.value.map(value => value?.email);\r",
+									"// var subscriptions = temp.join(\",\");\r",
+									"// console.log(subscriptions);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/listcrytpo",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"listcrytpo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transaction Add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "user_id",
+									"value": "{{user_id}}",
+									"type": "text"
+								},
+								{
+									"key": "cyt_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "wallet_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "fiat_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "Sell",
+									"type": "text"
+								},
+								{
+									"key": "cyt_amount",
+									"value": "0.000005",
+									"type": "text"
+								},
+								{
+									"key": "fiat_amount",
+									"value": "18.2",
+									"type": "text"
+								},
+								{
+									"key": "exchange_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/transactions",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transaction Get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Adminnnn",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/transactions",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transaction Get All By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Adminnnn",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/transactions/3",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"transactions",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD API Transaction\n\n- Transaction Add\n    \n- Show Transaction in DB\n    \n- Get Transaction By ID"
+		},
+		{
+			"name": "Exchange",
+			"item": [
+				{
+					"name": "CryptoCurrencies Get list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"console.log(data)\r",
+									"// const temp = data.value.map(value => value?.email);\r",
+									"// var subscriptions = temp.join(\",\");\r",
+									"// console.log(subscriptions);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/listcrytpo",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"listcrytpo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fiat Currency Get All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlApi}}/api/fiats",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"fiats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Users in System",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"console.log(data)\r",
+									"// const temp = data.value.map(value => value?.email);\r",
+									"// var subscriptions = temp.join(\",\");\r",
+									"// console.log(subscriptions);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/users",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange Buy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "buyer_user_id",
+									"value": "{{user_id}}",
+									"type": "text"
+								},
+								{
+									"key": "seller_user_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "cyt_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "fiat_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "Buy",
+									"type": "text"
+								},
+								{
+									"key": "cyt_amount",
+									"value": "0.0087",
+									"type": "text"
+								},
+								{
+									"key": "fiat_amount",
+									"value": "1248.84",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/exchanges",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"exchanges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange Sell",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "buyer_user_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "seller_user_id",
+									"value": "{{user_id}}",
+									"type": "text"
+								},
+								{
+									"key": "cyt_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "wallet_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "fiat_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "Sell",
+									"type": "text"
+								},
+								{
+									"key": "cyt_amount",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "fiat_amount",
+									"value": "100",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/exchanges",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"exchanges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange  Get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Adminnnn",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/exchanges",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"exchanges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange Get All By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "fial_name",
+								"value": "thb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Adminnnn",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{urlApi}}/api/exchanges/3",
+							"host": [
+								"{{urlApi}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD API Exchange\n\n- Exchange Buy\n- Exchange Sell\n    \n- Get Exchange All\n    \n- Get Exchange By ID"
+		}
+	],
+	"variable": [
+		{
+			"key": "collArr",
+			"value": ""
+		}
+	]
+}
